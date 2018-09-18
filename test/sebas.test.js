@@ -7,34 +7,20 @@ describe('Mis primeros pasos en Jest', () => {
         expect(name).toEqual('hello world');
     });
 
-    test('asincronia google', async () => {
-
-        axios.get('https://www.google.es')
-            .then(function (response) {
-                console.log('Success Google');
-            })
-            .catch(function (error) {
-                // handle error
-                console.log("ha petado google");
-            });
-        console.log('Lanzado Google');
-
-        /*let response =  await axios.get('https://www.google.es');
-
-        console.log(response);*/
-
+    test('asincronia google', async (done) => {
+        const response = await axios.get('https://www.google.es');
+        expect(response.data.length).toBeGreaterThan(1);
+        console.log('respuesta google');
+        done();
     });
 
-    test('asincronia atrapalo', () => {
-        console.log('Lanzada atrapalo')
-        axios.get('https://www.atrapalo.com')
-            .then(function (response) {
-                console.log('Success atrapalo');
-            })
-            .catch(function (error) {
-                // handle error
-                console.log("ha petado atrapalo");
-            })
+    test('asincronia atrapalo', async(done) => {
+        console.log('Lanzada atrapalo');
+
+        const response = await axios.get('https://www.atrapalo.com');
+        expect(response.data.length).toBeGreaterThan(0);
+        console.log('respuesta atrapalo');
+        done();
     });
 
     test('call function', () => {
